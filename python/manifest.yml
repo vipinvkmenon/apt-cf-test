@@ -1,0 +1,8 @@
+---
+applications:
+- name: debtest-py
+  memory: 1G
+  random-route: true
+  buildpacks:
+    - https://github.com/cloudfoundry/apt-buildpack.git
+    - python_buildpack
