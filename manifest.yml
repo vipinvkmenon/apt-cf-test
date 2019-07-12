@@ -1,0 +1,9 @@
+---
+applications:
+- name: debtest
+  random-route: true
+  memory: 1G
+  path: target/deb-test-1.0-SNAPSHOT.jar
+  buildpacks:
+    - https://github.com/cloudfoundry/apt-buildpack.git
+    - java_buildpack
