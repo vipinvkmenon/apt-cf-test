@@ -6,5 +6,5 @@
 3) cf p
 
 ## Python App
-cd into python folder
+cd into [python folder](/python)
 cf p
