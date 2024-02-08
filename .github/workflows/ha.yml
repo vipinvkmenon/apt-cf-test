@@ -1,0 +1,54 @@
+name: test
+
+# Controls when the workflow will run
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          repository: cloudfoundry/cloud_controller_ng
+          path: cc
+      - name: List
+        run: |
+            ls
+            cd cc
+            ls -a
+            pwd
+      - name: docker compose
+        uses: adambirds/docker-compose-action@v1.3.0
+        with:
+         compose-file: "./docker/docker-compose.yml"
+      - name: Hmm
+        run: |
+           PACKAGES="cf8-cli postgresql-client postgresql-client-common mariadb-client ruby-dev"
+           wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+           echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+           sudo apt-get update
+           export DEBIAN_FRONTEND="noninteractive" && echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
+           sudo apt-get install -o Dpkg::Options::="--force-overwrite" $PACKAGES -y
+           rbenv install $(cat /tmp/.ruby-version)
+           rbenv global $(cat /tmp/.ruby-version)
+           wget "$(curl -s https://api.github.com/repos/cloudfoundry/credhub-cli/releases/latest |
+           jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
+           cd /tmp
+           sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
+           gem install cf-uaac
+      - name: Run
+        run: |
+            uaac target http://localhost:8080 --skip-ssl-validation
+            uaac token client get admin -s "adminsecret"
+            cf api http://localhost
+            cf login -u ccadmin -p secret
+
