@@ -43,6 +43,7 @@ jobs:
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
            sudo gem install cf-uaac
+           sudo gem install bundler
       - name: Run
         run: |
             .devcontainer/scripts/setupDevelopmentEnvironment.sh
