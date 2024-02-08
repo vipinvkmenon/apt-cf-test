@@ -45,6 +45,10 @@ jobs:
            sudo gem install cf-uaac
       - name: Run
         run: |
+            .devcontainer/scripts/setupDevelopmentEnvironment.sh
+            export DB="postgres"
+            export DB_CONNECTION_STRING="postgres://postgres:supersecret@localhost:5432/ccdb"
+            bundle exec bin/cloud_controller -c tmp/cloud_controller.yml
             uaac target http://localhost:8080 --skip-ssl-validation
             uaac token client get admin -s "adminsecret"
             cf api http://localhost:3000
