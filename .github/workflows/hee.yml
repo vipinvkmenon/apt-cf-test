@@ -27,14 +27,6 @@ jobs:
         ports:
         - 3306:3306
       
-      minio:
-        image: minio/minio:latest
-        command: minio server --address ":9001" "/data"
-        ports:
-        - 9001:9001
-        - 9000:9000
-        
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
