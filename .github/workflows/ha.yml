@@ -47,6 +47,6 @@ jobs:
         run: |
             uaac target http://localhost:8080 --skip-ssl-validation
             uaac token client get admin -s "adminsecret"
-            cf api http://localhost
+            cf api http://localhost:3000
             cf login -u ccadmin -p secret
 
