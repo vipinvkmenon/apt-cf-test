@@ -48,3 +48,4 @@ jobs:
          services: |
             catsbroker
             uaa
+            minio
