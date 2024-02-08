@@ -46,7 +46,7 @@ jobs:
            sudo gem install bundler
       - name: Run
         run: |
-            .devcontainer/scripts/setupDevelopmentEnvironment.sh
+            sudo .devcontainer/scripts/setupDevelopmentEnvironment.sh
             export DB="postgres"
             export DB_CONNECTION_STRING="postgres://postgres:supersecret@localhost:5432/ccdb"
             bundle exec bin/cloud_controller -c tmp/cloud_controller.yml
