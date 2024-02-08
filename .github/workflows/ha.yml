@@ -29,7 +29,7 @@ jobs:
       - name: docker compose
         uses: adambirds/docker-compose-action@v1.3.0
         with:
-         compose-file: "./docker/docker-compose.yml"
+         compose-file: "docker-compose.yml"
       - name: Hmm
         run: |
            PACKAGES="cf8-cli postgresql-client postgresql-client-common mariadb-client ruby-dev"
@@ -38,8 +38,8 @@ jobs:
            sudo apt-get update
            export DEBIAN_FRONTEND="noninteractive" && echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
            sudo apt-get install -o Dpkg::Options::="--force-overwrite" $PACKAGES -y
-           rbenv install $(cat /tmp/.ruby-version)
-           rbenv global $(cat /tmp/.ruby-version)
+           #rbenv install $(cat /tmp/.ruby-version)
+           #rbenv global $(cat /tmp/.ruby-version)
            wget "$(curl -s https://api.github.com/repos/cloudfoundry/credhub-cli/releases/latest |
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
