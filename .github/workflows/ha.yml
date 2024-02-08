@@ -22,7 +22,6 @@ jobs:
       - name: List
         run: |
             ls
-            cd cc
             ls -a
             pwd
       - name: docker compose
@@ -43,7 +42,7 @@ jobs:
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
-           gem install cf-uaac
+           sudo gem install cf-uaac
       - name: Run
         run: |
             uaac target http://localhost:8080 --skip-ssl-validation
