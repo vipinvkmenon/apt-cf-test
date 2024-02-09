@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: cloudfoundry/cloud_controller_ng
+      - uses: masa-iwasaki/setup-rbenv@v1
       - name: List
         run: |
             ls
@@ -48,10 +49,16 @@ jobs:
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
+      - name: Install Ruby
+        run: |
+           eval "$(rbenv init -)"
+           rbenv install -s `cat .ruby-version` # or specify the version you want
+           rbenv global $(cat .ruby-version)
            sudo gem install cf-uaac
            sudo gem install bundler
       - name: Run
         run: |
+            eval "$(rbenv init -)"
             sudo .devcontainer/scripts/setupDevelopmentEnvironment.sh
             export DB="postgres"
             export DB_CONNECTION_STRING="postgres://postgres:supersecret@localhost:5432/ccdb"
