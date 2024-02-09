@@ -41,8 +41,9 @@ jobs:
            echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
            echo 'eval "$(rbenv init -)"' >> ~/.bashrc
            source ~/.bashrc
-           rbenv install $(cat .ruby-version)
-           rbenv global $(cat .ruby-version)
+           ~/.rbenv/bin/rbenv init
+           ~/.rbenv/bin/rbenv install $(cat .ruby-version)
+           ~/.rbenv/bin/rbenv global $(cat .ruby-version)
            wget "$(curl -s https://api.github.com/repos/cloudfoundry/credhub-cli/releases/latest |
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
