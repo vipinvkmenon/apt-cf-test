@@ -44,14 +44,14 @@ jobs:
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
       - name: Install Ruby
         run: |
-           eval "$(rbenv init -)"
-           rbenv install -s `cat .ruby-version` # or specify the version you want
-           rbenv global $(cat .ruby-version)
+           #eval "$(rbenv init -)"
+           #rbenv install -s `cat .ruby-version` # or specify the version you want
+           #rbenv global $(cat .ruby-version)
            sudo gem install cf-uaac
            sudo gem install bundler
       - name: Run
         run: |
-            eval "$(rbenv init -)"
+            #eval "$(rbenv init -)"
             sudo .devcontainer/scripts/setupDevelopmentEnvironment.sh
             export DB="postgres"
             export DB_CONNECTION_STRING="postgres://postgres:supersecret@localhost:5432/ccdb"
