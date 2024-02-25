@@ -20,12 +20,12 @@ jobs:
       #   ports:
       #   - 5432:5432
       
-      mysql:
-        image: mysql:8.2
-        env:
-          MYSQL_ROOT_PASSWORD: supersecret
-        ports:
-        - 3306:3306
+      # mysql:
+      #   image: mysql:8.2
+      #   env:
+      #     MYSQL_ROOT_PASSWORD: supersecret
+      #   ports:
+      #   - 3306:3306
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -61,8 +61,8 @@ jobs:
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
       - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true 
+        # with:
+          #bundler-cache: true 
       - name: Initializing stuff
         run: |
            .devcontainer/scripts/setupDevelopmentEnvironment.sh
