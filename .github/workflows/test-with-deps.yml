@@ -1,0 +1,48 @@
+name: test-with-deps
+
+# Controls when the workflow will run
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    services:
+      # postgres:
+      #   image: postgres:16-alpine
+      #   env:
+      #     POSTGRES_PASSWORD: supersecret
+      #   ports:
+      #   - 5432:5432
+      
+      mysql:
+        image: mysql:8.2
+        env:
+          MYSQL_ROOT_PASSWORD: supersecret
+        ports:
+        - 3306:3306
+      
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          repository: cloudfoundry/cloud_controller_ng
+          ref: terrible-things-to-get-to-ruby-3.3
+      - name: docker compose
+        uses: adambirds/docker-compose-action@v1.3.0
+        with:
+         compose-file: |
+           docker-compose.yml
+           .devcontainer/docker-compose.override.yml
+         services: |
+            postgres
+            catsbroker
+            uaa
+            minio
+            nginx
