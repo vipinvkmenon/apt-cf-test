@@ -1,4 +1,4 @@
-name: test-12
+name: test-witout-cf-ng
 
 # Controls when the workflow will run
 on:
@@ -33,6 +33,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: cloudfoundry/cloud_controller_ng
+          ref: terrible-things-to-get-to-ruby-3.3
       - name: docker compose
         uses: adambirds/docker-compose-action@v1.3.0
         with:
@@ -41,3 +42,4 @@ jobs:
             catsbroker
             uaa
             minio
+            nginx
