@@ -42,11 +42,12 @@ jobs:
            .devcontainer/docker-compose.override.yml
          services: |
             postgres
+            mysql
             catsbroker
             uaa
             minio
             nginx
-      - name: Hmm
+      - name: Installing Packages
         run: |
            PACKAGES="cf8-cli postgresql-client postgresql-client-common mariadb-client"
            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
@@ -59,3 +60,7 @@ jobs:
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
+      - name: Initializing stuff
+        run: |
+           .devcontainer/scripts/setupDevelopmentEnvironment.sh
+          
