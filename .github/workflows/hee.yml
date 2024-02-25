@@ -37,7 +37,9 @@ jobs:
       - name: docker compose
         uses: adambirds/docker-compose-action@v1.3.0
         with:
-         compose-file: "docker-compose.yml"
+         compose-file: |
+           docker-compose.yml
+           .devcontainer/docker-compose.override.yml
          services: |
             postgres
             catsbroker
