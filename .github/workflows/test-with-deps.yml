@@ -60,6 +60,9 @@ jobs:
            jq -r '.assets[] | select(.name|match("credhub-linux.*")) | .browser_download_url')" -O /tmp/credhub.tar.gz
            cd /tmp
            sudo tar -xzf /tmp/credhub.tar.gz && sudo rm -f /tmp/credhub.tar.gz && sudo mv /tmp/credhub /usr/bin
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true 
       - name: Initializing stuff
         run: |
            .devcontainer/scripts/setupDevelopmentEnvironment.sh
