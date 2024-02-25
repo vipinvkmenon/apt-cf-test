@@ -39,7 +39,6 @@ jobs:
         with:
          compose-file: |
            docker-compose.yml
-           .devcontainer/docker-compose.override.yml
          services: |
             postgres
             mysql
