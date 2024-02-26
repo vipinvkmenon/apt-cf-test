@@ -35,7 +35,7 @@ jobs:
           repository: cloudfoundry/cloud_controller_ng
           ref: 0906849122689b28c9ef4c1b5cec47223db8a328
       - name: trying tmp
-        run :|
+        run : |
            pwd
            ls
            mkdir -p tmp
