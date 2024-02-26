@@ -70,5 +70,9 @@ jobs:
           #bundler-cache: true 
       - name: Initializing stuff
         run: |
-           .devcontainer/scripts/setupDevelopmentEnvironment.sh
+           cp .devcontainer/scripts/setupDevelopmentEnvironment.sh .
+           pwd
+           ls
+           ./setupDevelopmentEnvironment.sh
+           
           
