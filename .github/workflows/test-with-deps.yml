@@ -34,12 +34,20 @@ jobs:
         with:
           repository: cloudfoundry/cloud_controller_ng
           ref: 0906849122689b28c9ef4c1b5cec47223db8a328
+      - uses: chrisdickinson/setup-yq@latest
       - name: trying tmp
         run : |
            pwd
            ls
            mkdir -p tmp
            cp -a config/cloud_controller.yml tmp/cloud_controller.yml
+           echo ------
+           echo copied
+           echo -----
+           ls
+           echo ------
+           yq -i e '.external_domain="localhost"' tmp/cloud_controller.yml
+
       - name: docker compose
         uses: adambirds/docker-compose-action@v1.3.0
         with:
@@ -68,7 +76,7 @@ jobs:
       - uses: ruby/setup-ruby@v1.172.0
         # with:
           #bundler-cache: true 
-      - uses: chrisdickinson/setup-yq@latest
+      
       - name: Initializing stuff
         run: |
            cp .devcontainer/scripts/setupDevelopmentEnvironment.sh .
