@@ -84,6 +84,6 @@ jobs:
            cp .devcontainer/scripts/setupDevelopmentEnvironment.sh .
            pwd
            ls
-           ./setupDevelopmentEnvironment.sh
+           sudo ./setupDevelopmentEnvironment.sh
            
           
