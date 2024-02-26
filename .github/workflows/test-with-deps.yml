@@ -34,7 +34,6 @@ jobs:
         with:
           repository: cloudfoundry/cloud_controller_ng
           ref: 0906849122689b28c9ef4c1b5cec47223db8a328
-      - uses: chrisdickinson/setup-yq@latest
       - name: trying tmp
         run : |
            pwd
@@ -46,6 +45,9 @@ jobs:
            echo -----
            ls
            echo ------
+           sudo add-apt-repository ppa:rmescandon/yq
+           sudo apt update
+           sudo apt install yq -y
            yq -i e '.external_domain="localhost"' tmp/cloud_controller.yml
 
       - name: docker compose
